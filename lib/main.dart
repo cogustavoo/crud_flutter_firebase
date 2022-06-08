@@ -1,6 +1,9 @@
+import 'package:crud_firebase_project/routes/app_routes.dart';
 import 'package:crud_firebase_project/views/user_form.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'views/home_screen.dart';
 //import 'firebase_options.dart';
 
 void main() async {
@@ -8,42 +11,12 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
     MaterialApp(
-      home: MyApp(),
+      title: 'routes',
+      initialRoute: '/',
+      routes: {
+        AppRoutes.HOME: (_) => const HomeScreen(),
+        AppRoutes.USER_FORM: (_) => UserForm(),
+      },
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
-  final _controller = TextEditingController();
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.amber,
-            title: const Text('just playing'),
-            centerTitle: true,
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => UserForm()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
