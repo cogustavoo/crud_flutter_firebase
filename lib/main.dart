@@ -1,3 +1,4 @@
+import 'package:crud_firebase_project/views/user_form.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'firebase_options.dart';
@@ -5,12 +6,16 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    MaterialApp(
+      home: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key}) : super(key: key);
+  final _controller = TextEditingController();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -25,30 +30,17 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.amber,
             title: const Text('just playing'),
             centerTitle: true,
-          ),
-          body: Center(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text('button testing 1'),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text('button testing 2'),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text('button testing 3'),
-                  ),
-                ),
-              ],
-            ),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserForm()),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),
