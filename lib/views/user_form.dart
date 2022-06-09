@@ -27,9 +27,10 @@ class UserForm extends HomeScreen {
                 if (isValid == true) {
                   _form.currentState?.save();
                   final user = User(
-                      name: _formData['name'],
-                      age: _formData['age'],
-                      gender: _formData['gender']);
+                      name: _formData['name'] ?? 'Undefined',
+                      age: _formData['age'] ?? '00',
+                      gender: _formData['gender'] ?? 'Undefined');
+                  createUser(user);
                   Navigator.of(context).pop();
                 }
               },
@@ -55,7 +56,7 @@ class UserForm extends HomeScreen {
                     }
                     return null;
                   },
-                  onSaved: (value) => _formData['genero'],
+                  onSaved: (value) => _formData['name'] = value!,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Idade'),
@@ -67,19 +68,19 @@ class UserForm extends HomeScreen {
                     }
                     return null;
                   },
-                  onSaved: (value) => _formData['age'],
+                  onSaved: (value) => _formData['age'] = value!,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Orientacao Sexual',
                   ),
                   validator: (value) {
-                    if (value == null || value.trim().length > 2) {
+                    if (value == null || value.trim().length < 2) {
                       return 'Minimo 2 letras';
                     }
                     return null;
                   },
-                  onSaved: (value) => _formData['gender'],
+                  onSaved: (value) => _formData['gender'] = value!,
                 )
               ],
             ),
@@ -90,11 +91,10 @@ class UserForm extends HomeScreen {
   }
 }
 
-Future createUser(
-    {required String name, required String age, required String gender}) async {
+Future createUser(User user) async {
   final docUser = FirebaseFirestore.instance.collection('users').doc();
 
-  final user = User(id: docUser.id, name: name, age: age, gender: gender);
+  user.id = docUser.id;
 
   final json = user.toJson();
 
