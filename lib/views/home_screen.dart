@@ -9,11 +9,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'outes',
+      title: 'routes',
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.amber,
-          title: const Text('just playing'),
+          title: const Text('Tela Inicial'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -44,10 +44,27 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Widget buildUser(User user) => ListTile(
-      leading: CircleAvatar(child: Text(user.age)),
-      title: Text(user.name),
-      subtitle: Text(user.gender),
+Widget buildUser(User user) => Card(
+      child: ListTile(
+        leading: const CircleAvatar(child: Icon(Icons.person, size: 40)),
+        title: Text(user.name),
+        subtitle: Text('${user.gender}   ${user.age}'),
+        trailing: SizedBox(
+          width: 100,
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.edit),
+                  color: Colors.yellow),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.delete),
+                  color: Colors.red)
+            ],
+          ),
+        ),
+      ),
     );
 
 Stream<List<User>> readUsers() =>
