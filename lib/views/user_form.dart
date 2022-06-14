@@ -27,9 +27,9 @@ class UserForm extends HomeScreen {
                 if (isValid == true) {
                   _form.currentState?.save();
                   final user = User(
-                      name: _formData['name'] ?? 'Undefined',
-                      age: _formData['age'] ?? '00',
-                      gender: _formData['gender'] ?? 'Undefined');
+                      name: _formData['name']!,
+                      age: _formData['age']!,
+                      gender: _formData['gender']!);
                   createUser(user);
                   Navigator.of(context).pop();
                 }
