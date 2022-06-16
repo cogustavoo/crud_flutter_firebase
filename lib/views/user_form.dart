@@ -100,3 +100,7 @@ Future createUser(User user) async {
 
   await docUser.set(json);
 }
+
+Future deleteUser(User user) {
+  return FirebaseFirestore.instance.collection('users').doc(user.id).delete();
+}
