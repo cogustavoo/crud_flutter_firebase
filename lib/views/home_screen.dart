@@ -54,11 +54,24 @@ Widget buildUser(User user) => Card(
           child: Row(
             children: <Widget>[
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.id)
+                        .update({'name': 'test'});
+                  },
                   icon: const Icon(Icons.edit),
                   color: Colors.yellow),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.id)
+                        .delete()
+                        .then((doc) => print('document deleted'),
+                            onError: (e) =>
+                                print('Error updating document $e'));
+                  },
                   icon: const Icon(Icons.delete),
                   color: Colors.red)
             ],
