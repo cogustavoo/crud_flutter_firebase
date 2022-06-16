@@ -64,13 +64,7 @@ Widget buildUser(User user) => Card(
                   color: Colors.yellow),
               IconButton(
                   onPressed: () {
-                    FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(user.id)
-                        .delete()
-                        .then((doc) => print('document deleted'),
-                            onError: (e) =>
-                                print('Error updating document $e'));
+                    deleteUser(user);
                   },
                   icon: const Icon(Icons.delete),
                   color: Colors.red)
@@ -83,3 +77,7 @@ Widget buildUser(User user) => Card(
 Stream<List<User>> readUsers() =>
     FirebaseFirestore.instance.collection('users').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+
+Future deleteUser(User user) {
+  return FirebaseFirestore.instance.collection('users').doc(user.id).delete();
+}
